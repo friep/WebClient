@@ -14,6 +14,7 @@ function hotkeys($state, $injector, dispatchers, gettextCatalog, translator) {
         MOVE_TO_TRASH: gettextCatalog.getString('Move to trash', null, 'Hotkey description'),
         MOVE_TO_ARCHIVE: gettextCatalog.getString('Move to archive', null, 'Hotkey description'),
         MOVE_TO_SPAM: gettextCatalog.getString('Move to spam', null, 'Hotkey description'),
+        APPLY_LABEL: gettextCatalog.getString('Apply label Hotkey', null, 'Hotkey description'),
         SHOW_HOTKEYS_LIST: gettextCatalog.getString('Show hotkeys available', null, 'Hotkey description'),
         GO_TO_INBOX: gettextCatalog.getString('Go to inbox', null, 'Hotkey description'),
         GO_TO_DRAFTS: gettextCatalog.getString('Go to drafts', null, 'Hotkey description'),
@@ -49,6 +50,7 @@ function hotkeys($state, $injector, dispatchers, gettextCatalog, translator) {
         'read',
         'unread',
         'move',
+        'labelModel',
         'newElement',
         'oldElement'
     ]);
@@ -122,6 +124,7 @@ function hotkeys($state, $injector, dispatchers, gettextCatalog, translator) {
     const inbox = action(emit('hotkeys', { type: 'move', data: { to: 'inbox' } }));
     const trash = action(emit('hotkeys', { type: 'move', data: { to: 'trash' } }));
     const archive = action(emit('hotkeys', { type: 'move', data: { to: 'archive' } }));
+    const label = action(emit('labelsModel'));
     const spam = action(emit('hotkeys', { type: 'move', data: { to: 'spam' } }));
     const newElement = action(emit('newElement'));
     const oldElement = action(emit('oldElement'));
@@ -195,6 +198,11 @@ function hotkeys($state, $injector, dispatchers, gettextCatalog, translator) {
             callback: spam,
             description: I18N.MOVE_TO_SPAM,
             keyEventType: KEY_EVENT_TYPE.UP
+        },
+        {
+            keyboard: 'l',
+            callback: label,
+            description: I18N.APPLY_LABEL
         },
         {
             keyboard: '?',
